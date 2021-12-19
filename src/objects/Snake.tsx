@@ -185,6 +185,7 @@ export default class Snake {
             this.body[this.body.length - 1].y == this.game.food.getPosition().y
         ) {
             this.game.food.eat();
+            this.game.pickupBgimg();
 
             // reset the ghost
             if(this.game.ghost) {

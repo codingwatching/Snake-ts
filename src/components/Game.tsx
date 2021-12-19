@@ -278,20 +278,27 @@ export default class Game<P> extends Component<{}, GameState> {
         });
     }
 
-    private pickupBgimg() {
+    public pickupBgimg() {
         /**
          * Random Picture (yjy)
          */
         var gg = document.getElementById("game");
-        if(!gg) return;
 
-        if(Utils.getRandom(0, 9) > 3) {
-            gg.style.backgroundImage = "url(\"https://api.mtyqx.cn/api/random.php\")";
-        } else {
-            if(Utils.getRandom(0, 9) < 3) {
-                gg.style.backgroundImage = "url(\"/yjy-bg-2.png\")";
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://api.mtyqx.cn/api/random.php?return=json");
+        xhr.send(null);
+        xhr.onload = (result) => {
+            if(!gg) return;
+            var data = result as any;
+
+            if(Utils.getRandom(0, 9) > 3) {
+                gg.style.backgroundImage = "url(\""+ data.imgurl +"\")";
             } else {
-                gg.style.backgroundImage = "url(\"/yjy-bg-1.jpg\")";
+                if(Utils.getRandom(0, 9) < 3) {
+                    gg.style.backgroundImage = "url(\"/yjy-bg-2.png\")";
+                } else {
+                    gg.style.backgroundImage = "url(\"/yjy-bg-1.jpg\")";
+                }
             }
         }
     }
