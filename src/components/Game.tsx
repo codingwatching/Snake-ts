@@ -99,6 +99,8 @@ export default class Game<P> extends Component<{}, GameState> {
         this.snake.init();
         this.food.display();
 
+        this.pickupBgimg();
+
         var throughWall = JSON.parse(window.localStorage.getItem("snake-ts.settings") as any).throughWall;
         this.throughWall = throughWall;
 
@@ -274,6 +276,24 @@ export default class Game<P> extends Component<{}, GameState> {
             }, 30 * 1000);
             this.timersManager.set("runningCooldown", {timer: cdTimer, type: "timeout"});
         });
+    }
+
+    private pickupBgimg() {
+        /**
+         * Random Picture (yjy)
+         */
+        var gg = document.getElementById("game");
+        if(!gg) return;
+
+        if(Utils.getRandom(0, 9) > 3) {
+            gg.style.backgroundImage = "url(\"https://api.mtyqx.cn/api/random.php\")";
+        } else {
+            if(Utils.getRandom(0, 9) < 3) {
+                gg.style.backgroundImage = "url(\"/yjy-bg-2.png\")";
+            } else {
+                gg.style.backgroundImage = "url(\"/yjy-bg-1.jpg\")";
+            }
+        }
     }
 }
 
